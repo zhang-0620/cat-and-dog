@@ -1,0 +1,85 @@
+# ============================================================
+# 猫狗识别项目配置文件
+# ============================================================
+
+project:
+  name: "Cat-Dog-Recognition"
+  version: "1.0.0"
+  task: "binary_classification"
+  description: "猫狗二分类计算机视觉项目：图像预处理 -> 特征提取 -> 分类 -> 评估"
+
+# ---------------------- 数据集配置 ----------------------
+dataset:
+  # 类别定义（顺序即标签编号：cat=0, dog=1）
+  classes: ["cat", "dog"]
+  # 文件名前缀 -> 标签（文件名形如 cat.1.jpg / dog.51.jpg）
+  label_pattern: "{class}.{index}.{ext}"
+  # 训练集 / 验证集根目录（留空表示仅使用测试集）
+  train_dir: ""
+  val_dir: ""
+
+  # ★ 测试集：指定的独立文件夹（本题要求）
+  test_dir: "ceshi"
+  test_dir_abs: "E:/cat and dog/ceshi"
+
+  # 划分比例（当 train_dir 非空时生效）
+  split:
+    val_ratio: 0.2
+    random_seed: 42
+
+  # 图像预处理
+  preprocess:
+    resize: [96, 96]        # 统一分辨率 (W, H)
+    color_mode: "RGB"       # RGB | GRAY
+    normalize: "minmax"     # minmax | standard | none
+    augment: true           # 训练时开启随机翻转/裁剪
+
+# ---------------------- 特征工程配置 ----------------------
+features:
+  hog:
+    enabled: true
+    orientations: 9
+    pixels_per_cell: [8, 8]
+    cells_per_block: [2, 2]
+    block_norm: "L2-Hys"
+  color_hist:
+    enabled: true
+    bins: 16
+    space: "HSV"            # RGB | HSV
+  pca:
+    enabled: true
+    n_components: 120
+    whiten: false
+
+# ---------------------- 模型配置 ----------------------
+models:
+  svm:
+    kernel: "rbf"           # linear | rbf | poly
+    C: 2.0
+    gamma: "scale"
+    max_iter: 2000
+    probability: true
+  cnn:
+    input_shape: [96, 96, 3]
+    filters: [16, 32, 64]
+    kernel_size: 3
+    dropout: 0.5
+    dense_units: 64
+    epochs: 60
+    batch_size: 32
+    learning_rate: 0.002
+
+# ---------------------- 输出配置 ----------------------
+output:
+  model_dir: "models"
+  output_dir: "outputs"
+  save_confusion_matrix: true
+  save_roc_curve: true
+  save_predictions_csv: true
+  save_misclassified_grid: true
+
+# ---------------------- 评估配置 ----------------------
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1", "roc_auc"]
+  positive_label: "dog"     # 计算 P/R/F1 时的正类
+  n_folds: 5                # 交叉验证折数

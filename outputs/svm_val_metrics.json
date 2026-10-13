@@ -1,0 +1,16 @@
+{
+  "accuracy": 0.5,
+  "precision": 0.5,
+  "recall": 1.0,
+  "f1": 0.6666666666666666,
+  "support": 20,
+  "tp": 10,
+  "fp": 10,
+  "fn": 0,
+  "tn": 0,
+  "roc_auc": 0.68,
+  "train_time_sec": 0.0,
+  "feature_dim": 79,
+  "train_size": 80,
+  "val_size": 20
+}

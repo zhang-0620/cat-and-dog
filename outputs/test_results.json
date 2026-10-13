@@ -1,0 +1,46 @@
+{
+  "test_dir": "E:\\cat and dog\\ceshi",
+  "num_test_samples": 100,
+  "class_distribution": {
+    "cat": 50,
+    "dog": 50
+  },
+  "models": {
+    "svm": {
+      "accuracy": 0.9,
+      "precision": 0.8333333333333334,
+      "recall": 1.0,
+      "f1": 0.9090909090909091,
+      "support": 100,
+      "tp": 50,
+      "fp": 10,
+      "fn": 0,
+      "tn": 40,
+      "roc_auc": 0.9856,
+      "per_class": {
+        "0": {
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.888888888888889,
+          "support": 50
+        },
+        "1": {
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "f1": 0.9090909090909091,
+          "support": 50
+        }
+      },
+      "confusion_matrix": [
+        [
+          40,
+          10
+        ],
+        [
+          0,
+          50
+        ]
+      ]
+    }
+  }
+}
